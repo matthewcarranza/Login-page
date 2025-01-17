@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 app.secret_key = "turtle"
@@ -74,11 +75,9 @@ def logout():
     return redirect(url_for('home'))
 
 
-
-
-
-
 if __name__ in "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
